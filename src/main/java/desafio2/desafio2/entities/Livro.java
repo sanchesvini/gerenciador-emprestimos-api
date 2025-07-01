@@ -1,16 +1,31 @@
 package desafio2.desafio2.entities;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Livro {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	private String titulo;
 	private String autor;
 	private int anoPublicacao;
 	private boolean disponivel;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+
 	public Livro(String titulo, String autor, int anoPublicacao, boolean disponivel) {
 		this.titulo = titulo;
 		this.autor = autor;
 		this.anoPublicacao = anoPublicacao;
 		this.disponivel = disponivel;
+	}
+
+	public Livro() {
+
 	}
 
 	public String getTitulo() {
@@ -42,7 +57,7 @@ public class Livro {
 	public void devolver() {
 		this.disponivel = true;
 	}
-	
+
 	@Override
 	public String toString() {
 		String disponibilidade = "";
