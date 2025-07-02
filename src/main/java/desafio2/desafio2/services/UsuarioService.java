@@ -1,4 +1,11 @@
 package desafio2.desafio2.services;
 
-public class UsuarioService {
+import desafio2.desafio2.entities.Usuario;
+import org.springframework.stereotype.Service;
+
+@Service
+public interface UsuarioService {
+
+    public void cadastrarUsuario(Usuario usuario);
+
 }
