@@ -1,4 +1,4 @@
-package desafio2.desafio2.controllers;
+package desafio2.desafio2.rest;
 
 import desafio2.desafio2.entities.Usuario;
 import desafio2.desafio2.services.UsuarioService;
