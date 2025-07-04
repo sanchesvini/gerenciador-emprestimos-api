@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UsuarioService {
 
-    public void cadastrarUsuario(Usuario usuario);
+    void cadastrarUsuario(Usuario usuario);
 
+    Usuario buscarUsuarioPorId(Long id);
 }

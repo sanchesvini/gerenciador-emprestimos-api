@@ -3,6 +3,7 @@ package desafio2.desafio2.services;
 import desafio2.desafio2.entities.Usuario;
 import desafio2.desafio2.repositories.UsuarioRepository;
 import desafio2.desafio2.rest.exceptions.CamposInvalidosException;
+import desafio2.desafio2.rest.exceptions.UsuarioNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +20,13 @@ public class UsuarioServiceImpl implements UsuarioService{
         }
         usuarioRepository.save(usuario);
     }
+
+    @Override
+    public Usuario buscarUsuarioPorId(Long id) {
+        if(id == null || id <= 0) {
+            throw new CamposInvalidosException("O ID do usuário deve ser um número positivo.");
+        }
+        return usuarioRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException("Usuário não encontrado com o ID: " + id));
+    }
+
 }

@@ -18,4 +18,11 @@ public class UsuarioController {
         usuarioService.cadastrarUsuario(usuario);
         return ResponseEntity.ok("Usuário cadastrado com sucesso!");
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarUsuarioPorId(@PathVariable Long id) {
+        Usuario usuario = usuarioService.buscarUsuarioPorId(id);
+        return ResponseEntity.ok(usuario);
+    }
+
 }
