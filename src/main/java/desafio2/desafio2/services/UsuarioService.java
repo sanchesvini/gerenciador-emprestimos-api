@@ -13,4 +13,8 @@ public interface UsuarioService {
     Usuario buscarUsuarioPorId(Long id);
 
     List<Usuario> listarUsuarios();
+
+    void atualizarUsuario(Usuario usuario);
+
+    void deletarUsuario(Long id);
 }
