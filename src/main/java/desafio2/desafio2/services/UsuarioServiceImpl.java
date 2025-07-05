@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService{
@@ -37,5 +38,28 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         return usuarios;
     }
+
+    @Override
+    public void atualizarUsuario(Usuario usuario) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuario.getId());
+        if(usuarioOptional.isEmpty()) {
+            throw new UsuarioNaoEncontradoException("Usuário não encontrado com o ID: " + usuario.getId());
+        }
+        if(usuario.getNome() == null || usuario.getNome().isEmpty()) {
+            throw new CamposInvalidosException("O nome do usuário não pode ser vazio.");
+        }
+        usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public void deletarUsuario(Long id) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        if(usuarioOptional.isEmpty()) {
+            throw new UsuarioNaoEncontradoException("Usuário não encontrado com o ID: " + id);
+        }
+
+        usuarioRepository.deleteById(id);
+    }
+
 
 }

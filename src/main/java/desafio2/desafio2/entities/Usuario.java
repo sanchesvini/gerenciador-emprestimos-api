@@ -9,22 +9,34 @@ import java.util.List;
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	private String nome;
 
 	@OneToMany(mappedBy = "usuario")
 	private List<Livro> livrosEmprestados = new ArrayList<Livro>();
 	
-	public Usuario(int id, String nome) {
+	public Usuario(Long id, String nome) {
 		this.id = id;
 		this.nome = nome;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setLivrosEmprestados(List<Livro> livrosEmprestados) {
+		this.livrosEmprestados = livrosEmprestados;
 	}
 
 	public Usuario() {
 
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
