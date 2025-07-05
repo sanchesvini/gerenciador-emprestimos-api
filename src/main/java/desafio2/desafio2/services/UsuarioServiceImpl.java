@@ -7,6 +7,8 @@ import desafio2.desafio2.rest.exceptions.UsuarioNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService{
 
@@ -27,6 +29,13 @@ public class UsuarioServiceImpl implements UsuarioService{
             throw new CamposInvalidosException("O ID do usuário deve ser um número positivo.");
         }
         return usuarioRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException("Usuário não encontrado com o ID: " + id));
+    }
+
+    @Override
+    public List<Usuario> listarUsuarios() {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+
+        return usuarios;
     }
 
 }

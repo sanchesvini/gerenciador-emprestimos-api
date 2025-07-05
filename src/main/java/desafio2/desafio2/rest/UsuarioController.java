@@ -24,5 +24,11 @@ public class UsuarioController {
         Usuario usuario = usuarioService.buscarUsuarioPorId(id);
         return ResponseEntity.ok(usuario);
     }
+    @GetMapping
+    public ResponseEntity<?> listarUsuarios() {
+        return ResponseEntity.ok(usuarioService.listarUsuarios());
+    }
+
+
 
 }
