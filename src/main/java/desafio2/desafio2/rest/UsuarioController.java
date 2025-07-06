@@ -1,13 +1,17 @@
 package desafio2.desafio2.rest;
 
+import desafio2.desafio2.dtos.UsuarioResponseDTO;
 import desafio2.desafio2.entities.Usuario;
 import desafio2.desafio2.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -22,11 +26,17 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarUsuarioPorId(@PathVariable Long id) {
         Usuario usuario = usuarioService.buscarUsuarioPorId(id);
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(new UsuarioResponseDTO(usuario));
     }
     @GetMapping
     public ResponseEntity<?> listarUsuarios() {
-        return ResponseEntity.ok(usuarioService.listarUsuarios());
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+
+        List<UsuarioResponseDTO> usuariosDTO = usuarios.stream()
+                .map(UsuarioResponseDTO::new)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(usuariosDTO);
     }
 
     @PutMapping("/{id}")
