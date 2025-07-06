@@ -14,4 +14,6 @@ public interface LivroService {
      List<Livro> listarLivros();
 
      void atualizarLivro(Livro livro);
+
+     void deletarLivro(Long id);
 }

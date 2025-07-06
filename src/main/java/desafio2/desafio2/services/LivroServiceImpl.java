@@ -70,5 +70,14 @@ public class LivroServiceImpl implements LivroService {
         livroRepository.save(livro);
     }
 
+    @Override
+    public void deletarLivro(Long id) {
+        Optional<Livro> livroOptional = livroRepository.findById(id);
+        if (!livroOptional.isPresent()) {
+            throw new LivroNaoEncontradoException("Livro não encontrado: Não existe livro cadastrado com o ID: " + id);
+        }
+        livroRepository.deleteById(id);
+    }
+
 
 }
