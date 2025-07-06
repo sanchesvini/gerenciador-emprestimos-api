@@ -1,9 +1,6 @@
 package desafio2.desafio2.rest;
 
-import desafio2.desafio2.rest.exceptions.CamposInvalidosException;
-import desafio2.desafio2.rest.exceptions.LivroExistenteException;
-import desafio2.desafio2.rest.exceptions.LivroNaoEncontradoException;
-import desafio2.desafio2.rest.exceptions.UsuarioNaoEncontradoException;
+import desafio2.desafio2.rest.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,5 +27,23 @@ public class LivroRestExceptionHandler {
                 System.currentTimeMillis());
 
         return new ResponseEntity<>( errorResponse, HttpStatus.BAD_REQUEST );
+    }
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleException(LivroNaoEmprestadoException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                System.currentTimeMillis());
+
+        return new ResponseEntity<>( errorResponse, HttpStatus.BAD_REQUEST );
+    }
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleException(LivroIndisponivelException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                System.currentTimeMillis());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }

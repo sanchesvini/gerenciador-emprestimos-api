@@ -5,6 +5,7 @@ import desafio2.desafio2.entities.Usuario;
 import desafio2.desafio2.repositories.LivroRepository;
 import desafio2.desafio2.rest.exceptions.CamposInvalidosException;
 import desafio2.desafio2.rest.exceptions.LivroExistenteException;
+import desafio2.desafio2.rest.exceptions.LivroNaoEmprestadoException;
 import desafio2.desafio2.rest.exceptions.LivroNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,6 +101,23 @@ public class LivroServiceImpl implements LivroService {
         livro.setUsuario(usuario);
 
         livro.emprestar();
+        livroRepository.save(livro);
+    }
+
+    @Override
+    public void devolverLivro(Long livroId) {
+        Optional<Livro> livroOptional = livroRepository.findById(livroId);
+        if (!livroOptional.isPresent()) {
+            throw new LivroNaoEncontradoException("Livro não encontrado: Não existe livro cadastrado com o ID: " + livroId);
+        }
+        Livro livro = livroOptional.get();
+
+        if (livro.isDisponivel()) {
+            throw new LivroNaoEmprestadoException( "O livro com o ID " + livroId + " não está emprestado.");
+        }
+
+        livro.setUsuario(null);
+        livro.devolver();
         livroRepository.save(livro);
     }
 

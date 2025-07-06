@@ -18,4 +18,6 @@ public interface LivroService {
      void deletarLivro(Long id);
 
      void emprestarLivro(Long livroId, Long usuarioId);
+
+     void devolverLivro(Long livroId);
 }
