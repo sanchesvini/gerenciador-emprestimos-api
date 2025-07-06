@@ -1,5 +1,6 @@
 package desafio2.desafio2.rest;
 
+import desafio2.desafio2.dtos.UsuarioRequestDTO;
 import desafio2.desafio2.dtos.UsuarioResponseDTO;
 import desafio2.desafio2.entities.Usuario;
 import desafio2.desafio2.services.UsuarioService;
@@ -18,8 +19,8 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<?> cadastrarUsuario(@RequestBody Usuario usuario){
-        usuarioService.cadastrarUsuario(usuario);
+    public ResponseEntity<?> cadastrarUsuario(@RequestBody UsuarioRequestDTO usuarioDTO){
+        usuarioService.cadastrarUsuario(usuarioDTO.paraUsuario());
         return ResponseEntity.ok("Usuário cadastrado com sucesso!");
     }
 
@@ -40,7 +41,8 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
+    public ResponseEntity<?> atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioRequestDTO usuarioDTO) {
+        Usuario usuario = usuarioDTO.paraUsuario();
         usuario.setId(id);
         usuarioService.atualizarUsuario(usuario);
         return ResponseEntity.ok("Usuário atualizado com sucesso!");
