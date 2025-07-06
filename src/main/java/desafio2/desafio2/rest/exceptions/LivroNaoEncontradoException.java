@@ -1,6 +1,6 @@
 package desafio2.desafio2.rest.exceptions;
 
-public class LivroNaoEncontradoException extends Exception {
+public class LivroNaoEncontradoException extends RuntimeException {
     public LivroNaoEncontradoException(String message) {
         super(message);
     }
