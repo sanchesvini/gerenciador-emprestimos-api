@@ -3,10 +3,7 @@ package desafio2.desafio2.services;
 import desafio2.desafio2.entities.Livro;
 import desafio2.desafio2.entities.Usuario;
 import desafio2.desafio2.repositories.LivroRepository;
-import desafio2.desafio2.rest.exceptions.CamposInvalidosException;
-import desafio2.desafio2.rest.exceptions.LivroExistenteException;
-import desafio2.desafio2.rest.exceptions.LivroNaoEmprestadoException;
-import desafio2.desafio2.rest.exceptions.LivroNaoEncontradoException;
+import desafio2.desafio2.rest.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +23,7 @@ public class LivroServiceImpl implements LivroService {
     @Override
     public void cadastrarLivro(Livro livro) {
         if (livro.getTitulo() == null || livro.getTitulo().isEmpty() || livro.getAutor() == null || livro.getAutor().isEmpty()) {
-            throw new CamposInvalidosException("Campos inválidos: Verifique os dados informados.");
+            throw new LivroCamposInvalidosException("Campos inválidos: Verifique os dados informados.");
         }
         Optional<Livro> livroOptional = livroRepository.findByTituloContainingIgnoreCase(livro.getTitulo());
         if (livroOptional.isPresent()) {
@@ -34,7 +31,7 @@ public class LivroServiceImpl implements LivroService {
         }
         int anoAtual = Calendar.getInstance().get(Calendar.YEAR);
         if (livro.getAnoPublicacao() > anoAtual) {
-            throw new CamposInvalidosException("Ano de publicação inválido: O ano de publicação não pode ser maior que o ano atual.");
+            throw new UsuarioCamposInvalidosException("Ano de publicação inválido: O ano de publicação não pode ser maior que o ano atual.");
         }
 
         livro.setDisponivel(true);
@@ -44,7 +41,7 @@ public class LivroServiceImpl implements LivroService {
     @Override
     public Livro buscarLivroPorId(Long id) {
         if (id == null || id <= 0) {
-            throw new CamposInvalidosException("ID inválido: O ID do livro deve ser um número positivo.");
+            throw new LivroCamposInvalidosException("ID inválido: O ID do livro deve ser um número positivo.");
         }
         Optional<Livro> livroOptional = livroRepository.findById(id);
         if (!livroOptional.isPresent()) {
@@ -65,12 +62,12 @@ public class LivroServiceImpl implements LivroService {
             throw new LivroNaoEncontradoException("Livro não encontrado: Não existe livro cadastrado com o ID: " + livro.getId());
         }
         if (livro.getTitulo() == null || livro.getTitulo().isEmpty() || livro.getAutor() == null || livro.getAutor().isEmpty()) {
-            throw new CamposInvalidosException("Campos inválidos: Verifique os dados informados.");
+            throw new LivroCamposInvalidosException("Campos inválidos: Verifique os dados informados.");
         }
 
         int anoAtual = Calendar.getInstance().get(Calendar.YEAR);
         if (livro.getAnoPublicacao() > anoAtual) {
-            throw new CamposInvalidosException("Ano de publicação inválido: O ano de publicação não pode ser maior que o ano atual.");
+            throw new LivroCamposInvalidosException("Ano de publicação inválido: O ano de publicação não pode ser maior que o ano atual.");
         }
         livroRepository.save(livro);
     }
