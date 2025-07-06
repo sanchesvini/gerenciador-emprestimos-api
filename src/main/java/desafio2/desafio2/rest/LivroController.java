@@ -24,5 +24,9 @@ public class LivroController {
         Livro livro = livroService.buscarLivroPorId(id);
         return ResponseEntity.ok(livro);
     }
+    @GetMapping
+    public ResponseEntity<?> listarLivros() {
+        return ResponseEntity.ok(livroService.listarLivros());
+    }
 
 }
