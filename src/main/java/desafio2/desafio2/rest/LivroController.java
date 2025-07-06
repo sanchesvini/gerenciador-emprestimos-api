@@ -47,4 +47,10 @@ public class LivroController {
         return ResponseEntity.ok("Livro emprestado com sucesso!");
     }
 
+    @PostMapping("/{livroId}/devolver")
+    public ResponseEntity<?> devolverLivro(@PathVariable Long livroId) {
+        livroService.devolverLivro(livroId);
+        return ResponseEntity.ok("Livro devolvido com sucesso!");
+    }
+
 }
