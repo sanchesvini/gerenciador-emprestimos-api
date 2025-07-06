@@ -1,6 +1,7 @@
 package desafio2.desafio2.services;
 
 import desafio2.desafio2.entities.Livro;
+import desafio2.desafio2.entities.Usuario;
 import desafio2.desafio2.repositories.LivroRepository;
 import desafio2.desafio2.rest.exceptions.CamposInvalidosException;
 import desafio2.desafio2.rest.exceptions.LivroExistenteException;
@@ -17,6 +18,9 @@ public class LivroServiceImpl implements LivroService {
 
     @Autowired
     private LivroRepository livroRepository;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Override
     public void cadastrarLivro(Livro livro) {
@@ -77,6 +81,26 @@ public class LivroServiceImpl implements LivroService {
             throw new LivroNaoEncontradoException("Livro não encontrado: Não existe livro cadastrado com o ID: " + id);
         }
         livroRepository.deleteById(id);
+    }
+
+    @Override
+    public void emprestarLivro(Long livroId, Long usuarioId) {
+        Optional<Livro> livroOptional = livroRepository.findById(livroId);
+        if (!livroOptional.isPresent()) {
+            throw new LivroNaoEncontradoException("Livro não encontrado: Não existe livro cadastrado com o ID: " + livroId);
+        }
+        Livro livro = livroOptional.get();
+
+        if (!livro.isDisponivel()) {
+            throw new LivroNaoEncontradoException("Livro indisponível: O livro com o ID " + livroId + " não está disponível para empréstimo.");
+        }
+
+        Usuario usuario = usuarioService.buscarUsuarioPorId(usuarioId);
+
+        livro.setUsuario(usuario);
+
+        livro.emprestar();
+        livroRepository.save(livro);
     }
 
 

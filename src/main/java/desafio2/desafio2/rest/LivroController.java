@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/livros")
+@RequestMapping("/api/livros")
 public class LivroController {
 
     @Autowired
@@ -39,6 +39,12 @@ public class LivroController {
     public ResponseEntity<?> deletarLivro(@PathVariable Long id) {
         livroService.deletarLivro(id);
         return ResponseEntity.ok("Livro deletado com sucesso!");
+    }
+
+    @PostMapping("/{livroId}/emprestar/{usuarioId}")
+    public ResponseEntity<?> emprestarLivro(@PathVariable Long livroId, @PathVariable Long usuarioId) {
+        livroService.emprestarLivro(livroId, usuarioId);
+        return ResponseEntity.ok("Livro emprestado com sucesso!");
     }
 
 }
