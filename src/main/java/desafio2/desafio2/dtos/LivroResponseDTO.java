@@ -9,6 +9,7 @@ public class LivroResponseDTO {
     private String autor;
     private int anoPublicacao;
     private boolean disponivel;
+    private String nomeUsuario;
 
     public LivroResponseDTO(Livro livro) {
         this.id = livro.getId();
@@ -16,6 +17,18 @@ public class LivroResponseDTO {
         this.autor = livro.getAutor();
         this.anoPublicacao = livro.getAnoPublicacao();
         this.disponivel = livro.isDisponivel();
+        if(livro.getUsuario() != null){
+            this.nomeUsuario = livro.getUsuario().getNome();
+        }
+
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public Long getId() {
