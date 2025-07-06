@@ -1,5 +1,6 @@
 package desafio2.desafio2.rest;
 
+import desafio2.desafio2.dtos.LivroResponseDTO;
 import desafio2.desafio2.dtos.UsuarioRequestDTO;
 import desafio2.desafio2.dtos.UsuarioResponseDTO;
 import desafio2.desafio2.entities.Usuario;
@@ -51,6 +52,15 @@ public class UsuarioController {
     public ResponseEntity<?> deletarUsuario(@PathVariable Long id) {
         usuarioService.deletarUsuario(id);
         return ResponseEntity.ok("Usuário deletado com sucesso!");
+    }
+
+    @GetMapping("/{id}/livros-emprestados")
+    public ResponseEntity<?> listarLivrosEmprestados(@PathVariable Long id){
+        Usuario usuario = usuarioService.buscarUsuarioPorId(id);
+        List<LivroResponseDTO> livrosEmprestados = usuario.getLivrosEmprestados().stream()
+                .map(LivroResponseDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(livrosEmprestados);
     }
 
 
