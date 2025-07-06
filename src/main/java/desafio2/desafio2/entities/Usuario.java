@@ -15,8 +15,7 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario")
 	private List<Livro> livrosEmprestados = new ArrayList<Livro>();
 	
-	public Usuario(Long id, String nome) {
-		this.id = id;
+	public Usuario( String nome) {
 		this.nome = nome;
 	}
 
