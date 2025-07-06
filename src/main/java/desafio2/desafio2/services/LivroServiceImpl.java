@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,9 +34,6 @@ public class LivroServiceImpl implements LivroService {
 
         livro.setDisponivel(true);
         livroRepository.save(livro);
-
-
-
     }
 
     @Override
@@ -48,6 +46,11 @@ public class LivroServiceImpl implements LivroService {
             throw new LivroNaoEncontradoException("Livro não encontrado: Não existe livro cadastrado com o ID: " + id);
         }
         return livroOptional.get();
+    }
+
+    @Override
+    public List<Livro> listarLivros() {
+        return livroRepository.findAll();
     }
 
 }
