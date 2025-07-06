@@ -4,6 +4,7 @@ import desafio2.desafio2.entities.Livro;
 import desafio2.desafio2.repositories.LivroRepository;
 import desafio2.desafio2.rest.exceptions.CamposInvalidosException;
 import desafio2.desafio2.rest.exceptions.LivroExistenteException;
+import desafio2.desafio2.rest.exceptions.LivroNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,18 @@ public class LivroServiceImpl implements LivroService {
 
 
 
+    }
+
+    @Override
+    public Livro buscarLivroPorId(Long id) {
+        if (id == null || id <= 0) {
+            throw new CamposInvalidosException("ID inválido: O ID do livro deve ser um número positivo.");
+        }
+        Optional<Livro> livroOptional = livroRepository.findById(id);
+        if (!livroOptional.isPresent()) {
+            throw new LivroNaoEncontradoException("Livro não encontrado: Não existe livro cadastrado com o ID: " + id);
+        }
+        return livroOptional.get();
     }
 
 }
