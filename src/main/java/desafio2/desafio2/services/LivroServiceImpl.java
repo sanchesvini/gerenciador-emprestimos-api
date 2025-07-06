@@ -28,7 +28,7 @@ public class LivroServiceImpl implements LivroService {
         if (livro.getTitulo() == null || livro.getTitulo().isEmpty() || livro.getAutor() == null || livro.getAutor().isEmpty()) {
             throw new CamposInvalidosException("Campos inválidos: Verifique os dados informados.");
         }
-        Optional<Livro> livroOptional = livroRepository.findByTitulo(livro.getTitulo());
+        Optional<Livro> livroOptional = livroRepository.findByTituloContainingIgnoreCase(livro.getTitulo());
         if (livroOptional.isPresent()) {
             throw new LivroExistenteException("Livro já cadastrado: O livro com o título '" + livro.getTitulo() + "' já existe.");
         }
