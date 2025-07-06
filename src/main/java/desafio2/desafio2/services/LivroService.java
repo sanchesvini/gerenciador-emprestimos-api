@@ -16,4 +16,6 @@ public interface LivroService {
      void atualizarLivro(Livro livro);
 
      void deletarLivro(Long id);
+
+     void emprestarLivro(Long livroId, Long usuarioId);
 }
