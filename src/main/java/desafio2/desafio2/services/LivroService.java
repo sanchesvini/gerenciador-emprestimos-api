@@ -1,4 +1,9 @@
 package desafio2.desafio2.services;
 
-public class LivroService {
+import desafio2.desafio2.entities.Livro;
+import org.springframework.stereotype.Service;
+
+@Service
+public interface LivroService {
+     void cadastrarLivro(Livro livro);
 }
