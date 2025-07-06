@@ -53,4 +53,22 @@ public class LivroServiceImpl implements LivroService {
         return livroRepository.findAll();
     }
 
+    @Override
+    public void atualizarLivro(Livro livro) {
+        Optional<Livro> livroOptional = livroRepository.findById(livro.getId());
+        if (!livroOptional.isPresent()) {
+            throw new LivroNaoEncontradoException("Livro não encontrado: Não existe livro cadastrado com o ID: " + livro.getId());
+        }
+        if (livro.getTitulo() == null || livro.getTitulo().isEmpty() || livro.getAutor() == null || livro.getAutor().isEmpty()) {
+            throw new CamposInvalidosException("Campos inválidos: Verifique os dados informados.");
+        }
+
+        int anoAtual = Calendar.getInstance().get(Calendar.YEAR);
+        if (livro.getAnoPublicacao() > anoAtual) {
+            throw new CamposInvalidosException("Ano de publicação inválido: O ano de publicação não pode ser maior que o ano atual.");
+        }
+        livroRepository.save(livro);
+    }
+
+
 }
