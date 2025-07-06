@@ -28,6 +28,30 @@ public class Livro {
 
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public void setAutor(String autor) {
+		this.autor = autor;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -71,4 +95,6 @@ public class Livro {
 				"Ano de publicação: "+ this.anoPublicacao + "\n"+
 				disponibilidade + " para empréstimo";
 	}
+
+
 }

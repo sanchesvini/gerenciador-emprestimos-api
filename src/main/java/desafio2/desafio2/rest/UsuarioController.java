@@ -31,7 +31,6 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
-        usuarioService.buscarUsuarioPorId(id);
         usuario.setId(id);
         usuarioService.atualizarUsuario(usuario);
         return ResponseEntity.ok("Usuário atualizado com sucesso!");

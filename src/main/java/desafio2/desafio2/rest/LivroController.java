@@ -29,4 +29,11 @@ public class LivroController {
         return ResponseEntity.ok(livroService.listarLivros());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarLivro(@PathVariable Long id, @RequestBody Livro livro) {
+        livro.setId(id);
+        livroService.atualizarLivro(livro);
+        return ResponseEntity.ok("Livro atualizado com sucesso!");
+    }
+
 }
