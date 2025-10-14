@@ -21,7 +21,7 @@ Certifique-se de ter os seguintes itens instalados:
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/desafio2.git
+git clone https://github.com/sanchesvini/gerenciador-emprestimos-api
 cd seu-projeto
 ```
 
